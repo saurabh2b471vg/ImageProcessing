@@ -19,37 +19,40 @@ public class NoiseRmover {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		BoundaryValuesHandeler bVH=new BoundaryValuesHandeler();
+		image = bVH.addPadding(windowSize/2, image);
 		int windowBlue[] = new int[windowSize * windowSize];
 		int windowRed[] = new int[windowSize * windowSize];
 		int windowGreen[] = new int[windowSize * windowSize];
 		int windowAlpha[] = new int[windowSize* windowSize];
 		int red,green,blue,alpha;
-		for (int rowIndex = windowSize / 2; rowIndex < image.getHeight() - (windowSize / 2); rowIndex++) {
-			for (int colIndex = windowSize / 2; colIndex < image.getWidth() - (windowSize / 2); colIndex++) {
+		for (int y = windowSize / 2; y < image.getHeight() - (windowSize / 2); y++) {
+			for (int x = windowSize / 2; x < image.getWidth() - (windowSize / 2); x++) {
 				int count=0;
-				for (int windowX = rowIndex-(windowSize/2); windowX < rowIndex+(windowSize/2); windowX++) {
-					for (int windowY = colIndex-(windowSize/2); windowY < colIndex+(windowSize/2); windowY++) {
+				for (int windowY = y-(windowSize/2); windowY < y+(windowSize/2); windowY++) {
+					for (int windowX = x-(windowSize/2); windowX < x+(windowSize/2); windowX++) {
 						Color pixel=new Color(image.getRGB(windowX, windowY));
 						red=pixel.getRed();
 						blue=pixel.getBlue();
 						green=pixel.getGreen();
-						System.out.println(red+" "+green+" "+blue);
 						alpha=pixel.getAlpha();
 						windowRed[count] = red;
 						windowGreen[count]=green;
 						windowBlue[count]=blue;	
 						windowAlpha[count]=alpha;
-						count++;
-						
+						count++;						
 					}
 				}
 				Arrays.sort(windowGreen);
 				Arrays.sort(windowRed);
 				Arrays.sort(windowBlue);
 				Arrays.sort(windowAlpha);
+				/*for(int i=0;i<9;i++)
+				System.out.print(windowGreen[i]+ "   ");
+				System.out.println(x);*/
 								
-				Color pixel=new Color(windowRed[windowRed.length/2], windowGreen[windowGreen.length/2],windowBlue[windowBlue.length/2]);
-				image.setRGB(rowIndex, colIndex, pixel.getRGB());
+				Color pixel=new Color(windowRed[windowRed.length/2], windowGreen[windowGreen.length/2],windowBlue[windowBlue.length/2],windowAlpha[windowAlpha.length/2]);
+				image.setRGB(x, y, pixel.getRGB());
 
 			}
 

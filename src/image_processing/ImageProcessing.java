@@ -11,6 +11,6 @@ public class ImageProcessing {
 	public static void main(String args[])
 	{
 		NoiseRmover nR=new NoiseRmover();
-		nR.removeSaltAndPaper("image/balloons_noisy.png", "flipped/balloons_noisynoisefree (2).png", 7);
+		nR.removeSaltAndPaper("image/large.jpg", "flipped/noiseless.jpg", 13);
 	}
 }
